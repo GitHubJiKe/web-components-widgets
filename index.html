@@ -11,13 +11,16 @@
     <script src="./tippy-bundle.iife.min.js"></script>
     <script src="./babel.min.js"></script>
     <style>
-        #app {
+        #app,
+        section {
             margin: 0 auto;
             width: 60%;
         }
 
         @media (max-width:550px) {
-            #app {
+
+            #app,
+            section {
                 margin: 0 auto;
                 width: 90%;
             }
@@ -27,19 +30,46 @@
             margin: 2rem 0;
         }
 
-        h1 {
+        h1,
+        footer {
             text-align: center;
+        }
+
+        pre {
+            border-radius: 0.4rem;
+            padding: 1rem;
+            overflow: auto;
         }
     </style>
 </head>
 
 <body>
     <script type="module" src="./widgets.mjs"></script>
+    <section>
+        <h1>
+            Web Component Widgets
+        </h1>
+        <h2>示例代码</h2>
+        <div id="code1"></div>
+        <div id="code2"></div>
+    </section>
     <div id="app"></div>
+    <footer>
+        项目地址：<a href="https://github.com/GitHubJiKe/web-components-widgets">@github</a> | 依赖：<a
+            href="https://tippyjs.bootcss.com/">@tippyjs</a> | 运用：<a href="https://react.dev/">@React</a> | <a
+            href="https://shiki.style/">@shiki</a>
+    </footer>
     <script type="text/babel">
         const View = () => {
+            const code = `
+function helloworld() {
+    console.log('Hello World')
+}
+            `
             return <main>
-                <h1>Web Component Widgets</h1>
+                <h2>
+                    效果展示
+                </h2>
                 这是一个可以展示tooltips的web component,名字叫<tooltips-widget content="这里是注释部分内容，你可以随便写" placement="top">tooltips-widget</tooltips-widget>
                 <hr />
                 <tips-widget type="info">这是一个信息</tips-widget>
@@ -57,11 +87,56 @@
                         Summary Widget 可以让你将不是特别重要的信息折叠起来展示，为文章的正文部分留出更多的展示空间。
                     </p>
                 </summary-widget>
+                <code-widget code={code}></code-widget>
             </main>
         }
         const container = document.getElementById('app');
         const root = ReactDOM.createRoot(container);
         root.render(<View />);
+    </script>
+    <script type="module">
+        // be sure to specify the exact version
+        import { codeToHtml } from 'https://esm.sh/shiki@1.0.0'
+        // or
+        // import { codeToHtml } from 'https://esm.run/shiki@1.0.0'
+
+        const codeEle1 = document.getElementById('code1')
+        const codeEle2 = document.getElementById('code2')
+        const code1 = `const code = \`
+        function helloworld() {
+            console.log('Hello World')
+        }
+    \`
+            `
+        codeEle1.innerHTML = await codeToHtml(code1, {
+            lang: 'js',
+            theme: 'synthwave-84'
+        })
+        const code2 = `
+<tooltips-widget content="这里是注释部分内容，你可以随便写" placement="top">tooltips-widget</tooltips-widget>
+<tips-widget type="info">这是一个信息</tips-widget>
+<tips-widget type="warning">这是一个警告</tips-widget>
+<tips-widget type="notice">这是一个注意</tips-widget>
+<tips-widget>这是一个提示</tips-widget>
+<summary-widget title="Summary Widget">
+    <tag-widget color="green">Hello tag-widget</tag-widget>
+    <tag-widget color="red">Hello tag-widget</tag-widget>
+    <tag-widget color="blue">Hello tag-widget</tag-widget>
+    <tag-widget color="yellow">Hello tag-widget</tag-widget>
+    <tag-widget color="gray">Hello tag-widget</tag-widget>
+    <p>
+        Summary Widget 可以让你将不是特别重要的信息折叠起来展示，为文章的正文部分留出更多的展示空间。
+    </p>
+</summary-widget>
+<code-widget code={code}></code-widget>
+// or
+<code-widget>{code}</code-widget>
+        `
+        codeEle2.innerHTML = await codeToHtml(code2, {
+            lang: 'html',
+            theme: 'synthwave-84'
+        })
+
     </script>
 </body>
 
