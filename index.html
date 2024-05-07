@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Web Components Widgets</title>
+    <script src="./react.production.min.js"></script>
+    <script src="./react-dom.production.min.js"></script>
+    <script src="./popper.min.js"></script>
+    <script src="./tippy-bundle.iife.min.js"></script>
+    <script src="./babel.min.js"></script>
     <style>
         #app {
             margin: 0 auto;
@@ -21,14 +26,43 @@
         hr {
             margin: 2rem 0;
         }
+
+        h1 {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <script type="module" src="./index.mjs"></script>
+    <script type="module" src="./widgets.mjs"></script>
     <div id="app"></div>
-    <script src="https://unpkg.com/popper.js@1"></script>
-    <script src="https://unpkg.com/tippy.js@5"></script>
+    <script type="text/babel">
+        const View = () => {
+            return <main>
+                <h1>Web Component Widgets</h1>
+                这是一个可以展示tooltips的web component,名字叫<tooltips-widget content="这里是注释部分内容，你可以随便写" placement="top">tooltips-widget</tooltips-widget>
+                <hr />
+                <tips-widget type="info">这是一个信息</tips-widget>
+                <tips-widget type="warning">这是一个警告</tips-widget>
+                <tips-widget type="notice">这是一个注意</tips-widget>
+                <tips-widget>这是一个提示</tips-widget>
+                <hr />
+                <summary-widget title="Summary Widget">
+                    <tag-widget color="green">Hello tag-widget</tag-widget>
+                    <tag-widget color="red">Hello tag-widget</tag-widget>
+                    <tag-widget color="blue">Hello tag-widget</tag-widget>
+                    <tag-widget color="yellow">Hello tag-widget</tag-widget>
+                    <tag-widget color="gray">Hello tag-widget</tag-widget>
+                    <p>
+                        Summary Widget 可以让你将不是特别重要的信息折叠起来展示，为文章的正文部分留出更多的展示空间。
+                    </p>
+                </summary-widget>
+            </main>
+        }
+        const container = document.getElementById('app');
+        const root = ReactDOM.createRoot(container);
+        root.render(<View />);
+    </script>
 </body>
 
 </html>
