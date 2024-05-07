@@ -2,17 +2,16 @@
 import './widgets.mjs'
 
 document.body.querySelector('#app').innerHTML = `
-<br/>
-<br/>
-<br/>
-<br/>
+<h1 style="text-align:center;">Web Component Widgets</h1>
 this is a tooltips label, created by a web component named
 
     <tooltips-widget content="tooltips widget" placement="top">tooltips-widget</tooltips-widget>
+    <hr/>
     <tips-widget type="info">这是一个信息</tips-widget>
     <tips-widget type="warning">这是一个警告</tips-widget>
     <tips-widget type="notice">这是一个注意</tips-widget>
     <tips-widget>这是一个提示</tips-widget>
+    <hr/>
     <summary-widget title="Summary Widget">
         <tag-widget color="green">Hello World</tag-widget>
         <tag-widget color="red">Hello World</tag-widget>
